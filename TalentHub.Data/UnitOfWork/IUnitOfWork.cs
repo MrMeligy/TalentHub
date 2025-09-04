@@ -12,7 +12,7 @@ namespace TalentHub.Data.UnitOfWork
     {
         IRepository<Academy> Academies { get; }
         IRepository<AcademyTeam> AcademyTeams { get; }
-        IRepository<Match> Matches { get; }
+        IMatchRepository Matches { get; }
         IRepository<Player> Players { get; }
         IRepository<PlayerMatch> PlayerMatches { get; }
         IRepository<PlayerSkill> PlayerSkills { get; }

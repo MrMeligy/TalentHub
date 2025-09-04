@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using TalentHub.Data;
+using TalentHub.Data.Repositories;
 using TalentHub.Data.UnitOfWork;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Add services to the container.
 // DI
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IMatchRepository, MatchRepository>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

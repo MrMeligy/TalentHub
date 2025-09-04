@@ -13,7 +13,7 @@ namespace TalentHub.Data.UnitOfWork
         ApplicationDbContext _ctx;
         public IRepository<Academy> Academies { get; }
         public IRepository<AcademyTeam> AcademyTeams { get; }
-        public IRepository<Match> Matches { get; }
+        public IMatchRepository Matches { get; }
         public IRepository<Player> Players { get; }
         public IRepository<PlayerMatch> PlayerMatches { get; }
         public IRepository<PlayerSkill> PlayerSkills { get; }
@@ -23,7 +23,7 @@ namespace TalentHub.Data.UnitOfWork
             Academies = new Repository<Academy>(_ctx);
             AcademyTeams = new Repository<AcademyTeam>(_ctx);
             Players = new Repository<Player>(_ctx);
-            Matches = new Repository<Match>(_ctx);
+            Matches = new MatchRepository(_ctx);
             PlayerMatches = new Repository<PlayerMatch>(_ctx);
             PlayerSkills = new Repository<PlayerSkill>(_ctx);
 

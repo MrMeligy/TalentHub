@@ -12,12 +12,12 @@ namespace TalentHub.Data
     public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
-        DbSet<Academy> Academies { get; set; }
-        DbSet<AcademyTeam> AcademyTeams { get; set; }
-        DbSet<Match> Matches { get; set; }
-        DbSet<Player> Players { get; set; }
-        DbSet<PlayerMatch> PlayerMatches { get; set; }
-        DbSet<PlayerSkill> PlayerSkills { get; set; }
+        public DbSet<Academy> Academies { get; set; }
+        public DbSet<AcademyTeam> AcademyTeams { get; set; }
+        public DbSet<Match> Matches { get; set; }
+        public DbSet<Player> Players { get; set; }
+        public DbSet<PlayerMatch> PlayerMatches { get; set; }
+        public DbSet<PlayerSkill> PlayerSkills { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
