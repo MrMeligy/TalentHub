@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TalentHub.Data.Repositories
+namespace TalentHub.Business.Abstraction
 {
     public interface IRepository<T> where T : class
     {

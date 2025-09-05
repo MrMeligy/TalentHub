@@ -17,7 +17,6 @@
   <ItemGroup>
     <ProjectReference Include="..\TalentHub.Core\TalentHub.Core.csproj" />
     <ProjectReference Include="..\TalentHub.Business\TalentHub.Business.csproj" />
-    <ProjectReference Include="..\TalentHub.Api\TalentHub.Api.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

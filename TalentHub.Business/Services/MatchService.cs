@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TalentHub.Business.Abstraction;
 using TalentHub.Business.Contracts;
+using TalentHub.Business.Dtos;
 using TalentHub.Core.Entities;
-using TalentHub.Data.Dtos;
-using TalentHub.Data.UnitOfWork;
 
 namespace TalentHub.Business.Services
 {

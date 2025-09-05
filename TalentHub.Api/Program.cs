@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using TalentHub.Business.Abstraction;
 using TalentHub.Data;
 using TalentHub.Data.Repositories;
 using TalentHub.Data.UnitOfWork;
@@ -14,6 +15,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // DI
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IMatchRepository, MatchRepository>();
+builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

@@ -5,8 +5,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using TalentHub.Business.Abstraction;
+using TalentHub.Business.Dtos;
 using TalentHub.Core.Entities;
-using TalentHub.Data.Dtos;
 
 namespace TalentHub.Data.Repositories
 {

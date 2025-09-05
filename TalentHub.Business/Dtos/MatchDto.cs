@@ -1,4 +1,4 @@
-﻿namespace TalentHub.Data.Dtos
+﻿namespace TalentHub.Business.Dtos
 {
         public class MatchDto
         {

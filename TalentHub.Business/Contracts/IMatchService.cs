@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TalentHub.Business.Dtos;
 using TalentHub.Core.Entities;
-using TalentHub.Data.Dtos;
 
 namespace TalentHub.Business.Contracts
 {

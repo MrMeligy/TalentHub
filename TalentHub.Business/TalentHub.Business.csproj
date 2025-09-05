@@ -2,7 +2,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TalentHub.Core\TalentHub.Core.csproj" />
-    <ProjectReference Include="..\TalentHub.Data\TalentHub.Data.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
