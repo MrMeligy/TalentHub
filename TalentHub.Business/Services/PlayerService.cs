@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TalentHub.Business.Abstraction;
 using TalentHub.Business.Contracts;
-using TalentHub.Business.Dtos;
+using static TalentHub.Business.Dtos.PlayerDto;
 using TalentHub.Core.Entities;
 
 namespace TalentHub.Business.Services
@@ -35,15 +35,15 @@ namespace TalentHub.Business.Services
             return true;
         }
 
-        public Task<IReadOnlyList<PlayerDto>> GetAllPlayersAsync(int skip, int pageSize)=>_uow.Players.GetAllPlayersAsync(skip, pageSize);
+        public Task<IReadOnlyList<PlayerReadDto>> GetAllPlayersAsync(int skip, int pageSize)=>_uow.Players.GetAllPlayersAsync(skip, pageSize);
 
-        public Task<PlayerDto?> GetPlayerByIdAsync(Guid playerId)=>_uow.Players.GetPlayerByIdAsync(playerId);
+        public Task<PlayerReadDto?> GetPlayerByIdAsync(Guid playerId)=>_uow.Players.GetPlayerByIdAsync(playerId);
 
-        public Task<IReadOnlyList<PlayerDto>> GetPlayersByAcademyAsync(Guid academyId, int skip, int pageSize) => _uow.Players.GetPlayersByAcademyAsync(academyId, skip, pageSize);
+        public Task<IReadOnlyList<PlayerReadDto>> GetPlayersByAcademyAsync(Guid academyId, int skip, int pageSize) => _uow.Players.GetPlayersByAcademyAsync(academyId, skip, pageSize);
 
-        public Task<IReadOnlyList<PlayerDto>> GetPlayersByMatchAsync(Guid matchId) => _uow.Players.GetPlayersByMatchAsync(matchId);
+        public Task<IReadOnlyList<PlayerReadDto>> GetPlayersByMatchAsync(Guid matchId) => _uow.Players.GetPlayersByMatchAsync(matchId);
 
-        public Task<IReadOnlyList<PlayerDto>> GetPlayersByTeamAsync(Guid teamId) => _uow.Players.GetPlayersByTeamAsync(teamId);
+        public Task<IReadOnlyList<PlayerReadDto>> GetPlayersByTeamAsync(Guid teamId) => _uow.Players.GetPlayersByTeamAsync(teamId);
 
         public async Task<bool> UpdatePlayerAsync(Guid id, Player player)
         {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TalentHub.Business.Abstraction;
-using TalentHub.Business.Dtos;
+using static TalentHub.Business.Dtos.PlayerDto;
 using TalentHub.Core.Entities;
 
 namespace TalentHub.Data.Repositories
@@ -19,11 +19,11 @@ namespace TalentHub.Data.Repositories
             _ctx = ctx;
         }
 
-        public async Task<IReadOnlyList<PlayerDto>> GetAllPlayersAsync(int skip, int pageSize)
+        public async Task<IReadOnlyList<PlayerReadDto>> GetAllPlayersAsync(int skip, int pageSize)
         {
             return await _ctx.Players
                 .AsNoTracking()
-                .Select(p => new PlayerDto
+                .Select(p => new PlayerReadDto
                 {
                     Id = p.Id,
                     AcademyTeamId = p.AcademyTeamId,
@@ -56,11 +56,10 @@ namespace TalentHub.Data.Repositories
                 .ToListAsync();
         }
 
-        public async Task<PlayerDto?> GetPlayerByIdAsync(Guid playerId)
+        public async Task<PlayerReadDto?> GetPlayerByIdAsync(Guid playerId)
         {
             return await _ctx.Players
-                .AsNoTracking()
-                .Select(p => new PlayerDto
+                .Select(p => new PlayerReadDto
                 {
                     Id = p.Id,
                     AcademyTeamId = p.AcademyTeamId,
@@ -90,12 +89,12 @@ namespace TalentHub.Data.Repositories
                 .FirstOrDefaultAsync(p => p.Id == playerId);
         }
 
-        public async Task<IReadOnlyList<PlayerDto>> GetPlayersByAcademyAsync(Guid academyId, int skip, int pageSize)
+        public async Task<IReadOnlyList<PlayerReadDto>> GetPlayersByAcademyAsync(Guid academyId, int skip, int pageSize)
         {
             return await _ctx.Players
                 .AsNoTracking()
                 .Where(p => p.AcademyTeam.Academy.Id == academyId)
-                .Select(p => new PlayerDto
+                .Select(p => new PlayerReadDto
                 {
                     Id = p.Id,
                     AcademyTeamId = p.AcademyTeamId,
@@ -127,12 +126,12 @@ namespace TalentHub.Data.Repositories
                 .ToListAsync();
         }
 
-        public async Task<IReadOnlyList<PlayerDto>> GetPlayersByMatchAsync(Guid matchId)
+        public async Task<IReadOnlyList<PlayerReadDto>> GetPlayersByMatchAsync(Guid matchId)
         {
             return await _ctx.PlayerMatches
                 .AsNoTracking()
                 .Where(m=>m.MatchId==matchId)
-                .Select(p=>new PlayerDto
+                .Select(p=>new PlayerReadDto
                 {
                     Id = p.PlayerId,
                     AcademyTeamId = p.Player.AcademyTeamId,
@@ -162,12 +161,12 @@ namespace TalentHub.Data.Repositories
                 .ToListAsync();            
         }
 
-        public async Task<IReadOnlyList<PlayerDto>> GetPlayersByTeamAsync(Guid teamId)
+        public async Task<IReadOnlyList<PlayerReadDto>> GetPlayersByTeamAsync(Guid teamId)
         {
             return await _ctx.Players
                 .AsNoTracking()
                 .Where(p => p.AcademyTeamId == teamId)
-                .Select(p => new PlayerDto
+                .Select(p => new PlayerReadDto
                 {
                     Id = p.Id,
                     AcademyTeamId = p.AcademyTeamId,

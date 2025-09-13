@@ -22,6 +22,8 @@ builder.Services.AddScoped<IMatchRepository, MatchRepository>();
 builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
 
 builder.Services.AddScoped<IAcademyService, AcademyService>();
+builder.Services.AddScoped<IAcademyTeamService, AcademyTeamService>();
+builder.Services.AddScoped<IPlayerService, PlayerService>();
 
 // Fix: Use the correct overload for AddAutoMapper
 builder.Services.AddAutoMapper(cfg => cfg.AddProfile<MappingProfile>());
