@@ -21,11 +21,13 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IMatchRepository, MatchRepository>();
 builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
 builder.Services.AddScoped<IPlayerSkillRepository, PlayerSkillRepository>();
+builder.Services.AddScoped<IMatchRepository, MatchRepository>();
 
 builder.Services.AddScoped<IAcademyService, AcademyService>();
 builder.Services.AddScoped<IAcademyTeamService, AcademyTeamService>();
 builder.Services.AddScoped<IPlayerService, PlayerService>();
 builder.Services.AddScoped<IPlayerSkillService, PlayerSkillService>();
+builder.Services.AddScoped<IMatchService, MatchService>();
 
 // Fix: Use the correct overload for AddAutoMapper
 builder.Services.AddAutoMapper(cfg => cfg.AddProfile<MappingProfile>());

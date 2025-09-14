@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TalentHub.Business.Abstraction;
 using TalentHub.Business.Contracts;
-using TalentHub.Business.Dtos;
+using static TalentHub.Business.Dtos.MatchDto;
 using TalentHub.Core.Entities;
 
 namespace TalentHub.Business.Services
@@ -33,9 +33,9 @@ namespace TalentHub.Business.Services
             return true;
         }
 
-        public Task<IReadOnlyList<MatchDto>> GetAllAsync() => _uow.Matches.GetAllWithAcademyNamesAsync();
+        public Task<IReadOnlyList<MatchReadDto>> GetAllAsync() => _uow.Matches.GetAllWithAcademyNamesAsync();
 
-        public Task<MatchDto?> GetByIdAsync(Guid id) => _uow.Matches.GetMatchByIdAsync(id);
+        public Task<MatchReadDto?> GetByIdAsync(Guid id) => _uow.Matches.GetMatchByIdAsync(id);
 
         public async Task<bool> UpdateAsync(Guid id, Match updated)
         {

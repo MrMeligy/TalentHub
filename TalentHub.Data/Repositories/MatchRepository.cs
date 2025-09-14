@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using TalentHub.Business.Abstraction;
 using TalentHub.Business.Dtos;
 using TalentHub.Core.Entities;
+using static TalentHub.Business.Dtos.MatchDto;
 
 namespace TalentHub.Data.Repositories
 {
@@ -19,7 +20,7 @@ namespace TalentHub.Data.Repositories
             _ctx = ctx;
         }
 
-        public async Task<IReadOnlyList<MatchDto>> GetAllWithAcademyNamesAsync()
+        public async Task<IReadOnlyList<MatchReadDto>> GetAllWithAcademyNamesAsync()
         {
             
             return await _ctx.Matches
@@ -27,10 +28,11 @@ namespace TalentHub.Data.Repositories
             .ThenInclude(ht => ht.Academy)
         .Include(m => m.AwayTeam)
             .ThenInclude(at => at.Academy)
-        .Select(m => new MatchDto
+        .Select(m => new MatchReadDto
         {
             Id = m.Id,
             KickOff = m.Kickoff,
+            Venue = m.Venue,
 
             HomeId = m.HomeId,
             HomeName = m.HomeTeam.Academy.Name,
@@ -47,7 +49,7 @@ namespace TalentHub.Data.Repositories
         .ToListAsync();
         }
 
-        public async Task<IReadOnlyList<MatchDto>> GetAcademyMatches(Guid id)
+        public async Task<IReadOnlyList<MatchReadDto>> GetAcademyMatches(Guid id)
         {
             return await _ctx.Matches
         .Include(m => m.HomeTeam).ThenInclude(t => t.Academy)
@@ -55,10 +57,11 @@ namespace TalentHub.Data.Repositories
         .Where(m =>
             m.HomeTeam.AcademyId == id ||
             m.AwayTeam.AcademyId == id)
-        .Select(m => new MatchDto
+        .Select(m => new MatchReadDto
         {
             Id = m.Id,
             KickOff = m.Kickoff,
+            Venue = m.Venue,
 
             HomeId = m.HomeId,
             HomeName = m.HomeTeam.Academy.Name,
@@ -75,7 +78,7 @@ namespace TalentHub.Data.Repositories
         .ToListAsync();
         }
 
-        public async Task<MatchDto?> GetMatchByIdAsync(Guid id)
+        public async Task<MatchReadDto?> GetMatchByIdAsync(Guid id)
         {
             return await _ctx.Matches
         .Include(m => m.HomeTeam)
@@ -83,10 +86,11 @@ namespace TalentHub.Data.Repositories
         .Include(m => m.AwayTeam)
             .ThenInclude(at => at.Academy)
         .Where(m => m.Id == id)
-        .Select(m => new MatchDto
+        .Select(m => new MatchReadDto
         {
             Id = m.Id,
             KickOff = m.Kickoff,
+            Venue = m.Venue,
 
             HomeId = m.HomeId,
             HomeName = m.HomeTeam.Academy.Name,
