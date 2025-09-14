@@ -32,7 +32,8 @@ namespace TalentHub.Business.Services
             return true;
         }
 
-        public async Task<IReadOnlyList<PlayerSkill>> GetAllAsync()=> await _uow.PlayerSkills.GetAllAsync();
+        public async Task<IReadOnlyList<PlayerSkill>> GetAllAsync(Guid playerId) => await _uow.PlayerSkills.GetByPlayerAsync(playerId);
+
 
         public async Task<PlayerSkill?> GetByIdAsync(Guid id)=> await _uow.PlayerSkills.GetByIdAsync(id) ;
 

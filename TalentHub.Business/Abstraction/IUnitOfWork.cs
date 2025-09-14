@@ -14,7 +14,7 @@ namespace TalentHub.Business.Abstraction
         IMatchRepository Matches { get; }
         IPlayerRepository Players { get; }
         IRepository<PlayerMatch> PlayerMatches { get; }
-        IRepository<PlayerSkill> PlayerSkills { get; }
+        IPlayerSkillRepository PlayerSkills { get; }
         Task<int> SaveChangesAsync();
     }
 }

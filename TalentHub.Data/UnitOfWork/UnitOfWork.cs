@@ -17,7 +17,7 @@ namespace TalentHub.Data.UnitOfWork
         public IMatchRepository Matches { get; }
         public IPlayerRepository Players { get; }
         public IRepository<PlayerMatch> PlayerMatches { get; }
-        public IRepository<PlayerSkill> PlayerSkills { get; }
+        public IPlayerSkillRepository PlayerSkills { get; }
         public UnitOfWork(ApplicationDbContext ctx)
         {
             _ctx = ctx;
@@ -26,7 +26,7 @@ namespace TalentHub.Data.UnitOfWork
             Players = new PlayerRepository(_ctx);
             Matches = new MatchRepository(_ctx);
             PlayerMatches = new Repository<PlayerMatch>(_ctx);
-            PlayerSkills = new Repository<PlayerSkill>(_ctx);
+            PlayerSkills = new PlayerSkillRepository(_ctx);
 
         }
         public Task<int> SaveChangesAsync() => _ctx.SaveChangesAsync();

@@ -9,7 +9,7 @@ namespace TalentHub.Business.Contracts
 {
     public interface IPlayerSkillService
     {
-        Task<IReadOnlyList<PlayerSkill>> GetAllAsync();
+        Task<IReadOnlyList<PlayerSkill>> GetAllAsync(Guid playerId);
         Task<PlayerSkill?> GetByIdAsync(Guid id);
         Task<PlayerSkill> CreateAsync(PlayerSkill skill);
         Task<bool> UpdateAsync(Guid id, PlayerSkill updated);

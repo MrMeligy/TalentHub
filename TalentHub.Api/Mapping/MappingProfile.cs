@@ -3,6 +3,7 @@ using static TalentHub.Business.Dtos.AcademyDto;
 using TalentHub.Core.Entities;
 using static TalentHub.Business.Dtos.AcademyTeamDto;
 using static TalentHub.Business.Dtos.PlayerDto;
+using static TalentHub.Business.Dtos.PlayerSkillDto;
 
 namespace TalentHub.Api.Mapping
 {
@@ -21,7 +22,9 @@ namespace TalentHub.Api.Mapping
                 .ForMember(dest => dest.TeamName, opt => opt.MapFrom(src => src.AcademyTeam.Academy.Name))
                 .ForMember(dest => dest.AcademyImage, opt => opt.MapFrom(src => src.AcademyTeam.Academy.Image));
             CreateMap<PlayerCreateDto, Player>();
-            
+
+            CreateMap<PlayerSkill, PlayerSkillReadDto>();
+            CreateMap<PlayerSkillCreateDto, PlayerSkill>();
         }
 
 
