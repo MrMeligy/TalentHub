@@ -5,6 +5,7 @@ using static TalentHub.Business.Dtos.AcademyTeamDto;
 using static TalentHub.Business.Dtos.PlayerDto;
 using static TalentHub.Business.Dtos.PlayerSkillDto;
 using static TalentHub.Business.Dtos.MatchDto;
+using static TalentHub.Business.Dtos.PlayerMatchDto;
 
 namespace TalentHub.Api.Mapping
 {
@@ -30,6 +31,9 @@ namespace TalentHub.Api.Mapping
             CreateMap<Match, MatchReadDto>();
             CreateMap<MatchCreateDto, Match>();
             CreateMap<MatchUpdateDto, Match>();
+
+            CreateMap<PlayerMatch, PlayerMatchReadDto>();
+            CreateMap<PlayerMatchCreateDto, PlayerMatch>();
         }
 
 

@@ -9,10 +9,10 @@ namespace TalentHub.Business.Contracts
 {
     public interface IPlayerMatchService
     {
-        Task<IReadOnlyList<PlayerMatch>> GetAllAsync();
+        Task<IReadOnlyList<PlayerMatch>> GetByMatchAsync(Guid matchId);
+        Task<IReadOnlyList<PlayerMatch>> GetByPlayerAsync(Guid playerId);
         Task<PlayerMatch?> GetByIdAsync(Guid id);
         Task<PlayerMatch> CreateAsync(PlayerMatch playerMatch);
-        Task<bool> UpdateAsync(Guid id, PlayerMatch updated);
         Task<bool> DeleteAsync(Guid id);
     }
 }

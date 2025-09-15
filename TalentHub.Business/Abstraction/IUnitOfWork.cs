@@ -13,7 +13,7 @@ namespace TalentHub.Business.Abstraction
         IRepository<AcademyTeam> AcademyTeams { get; }
         IMatchRepository Matches { get; }
         IPlayerRepository Players { get; }
-        IRepository<PlayerMatch> PlayerMatches { get; }
+        IPlayerMatchRepository PlayerMatches { get; }
         IPlayerSkillRepository PlayerSkills { get; }
         Task<int> SaveChangesAsync();
     }

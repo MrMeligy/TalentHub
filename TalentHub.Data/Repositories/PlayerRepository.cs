@@ -55,7 +55,6 @@ namespace TalentHub.Data.Repositories
                 .Skip(skip).Take(pageSize)
                 .ToListAsync();
         }
-
         public async Task<PlayerReadDto?> GetPlayerByIdAsync(Guid playerId)
         {
             return await _ctx.Players
