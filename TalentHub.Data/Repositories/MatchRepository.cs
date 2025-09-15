@@ -107,6 +107,56 @@ namespace TalentHub.Data.Repositories
         .FirstOrDefaultAsync();
         }
 
+        public async Task<IReadOnlyList<MatchReadDto>> GetAllWithAcademyNamesKPagenationAsync(
+    int pageSize,
+    DateTime? key = null,            // آخر Kickoff ظهر (ممكن null لأول صفحة)
+    Guid? lastId = null,             // آخر Id ظهر عند نفس الـ Kickoff (ممكن null)
+    bool forward = true,             // true للأمام، false للخلف
+    CancellationToken ct = default)
+        {
+            var q = _ctx.Matches.AsNoTracking();
 
+            if (key.HasValue)
+            {
+                if (forward)
+                {
+                    q = q.Where(m =>
+                        m.Kickoff > key.Value ||
+                        (m.Kickoff == key.Value && (lastId.HasValue ? m.Id.CompareTo(lastId.Value) > 0 : true))
+                    );
+                }
+                else
+                {
+                    q = q.Where(m =>
+                        m.Kickoff < key.Value ||
+                        (m.Kickoff == key.Value && (lastId.HasValue ? m.Id.CompareTo(lastId.Value) < 0 : true))
+                    );
+                }
+            }
+
+            q = forward
+                ? q.OrderBy(m => m.Kickoff).ThenBy(m => m.Id)
+                : q.OrderByDescending(m => m.Kickoff).ThenByDescending(m => m.Id);
+
+            return await q
+                .Select(m => new MatchReadDto
+                {
+                    Id = m.Id,
+                    KickOff = m.Kickoff,
+                    Venue = m.Venue,
+                    HomeId = m.HomeId,
+                    HomeName = m.HomeTeam.Academy.Name,
+                    HomeImage = m.HomeTeam.Academy.Image,
+                    HomeAgeGroup = m.HomeTeam.AgeGroup,
+                    HomeScore = m.HomeScore,
+                    AwayId = m.AwayId,
+                    AwayName = m.AwayTeam.Academy.Name,
+                    AwayAgeGroup = m.AwayTeam.AgeGroup,
+                    AwayImage = m.AwayTeam.Academy.Image,
+                    AwayScore = m.AwayScore,
+                })
+                .Take(pageSize)
+                .ToListAsync(ct);
+        }
     }
 }
