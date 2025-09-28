@@ -19,16 +19,16 @@ namespace TalentHub.Api.Controllers
             _service = service;
             _mapper = mapper;
         }
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<AcademyTeamReadDto>>> GetAll()
+        [HttpGet("{academyTeam:Guid}")]
+        public async Task<ActionResult<IEnumerable<AcademyTeamReadDto>>> GetAll(Guid academyTeam)
         {
-            var items = await _service.GetAllAsync();
+            var items = await _service.GetAcademyTeams(academyTeam);
             return Ok(_mapper.Map<IEnumerable<AcademyTeamReadDto>>(items));
         }
-        [HttpGet("{id:Guid}")]
-        public async Task<ActionResult<AcademyTeamReadDto>> GetById(Guid id)
+        [HttpGet]
+        public async Task<ActionResult<AcademyTeamReadDto>> GetById([FromQuery]Guid id)
         {
-            var academyTeam = await _service.GetByIdAsync(id);
+            var academyTeam = await _service.GetAcademyTeamById(id);
             if(academyTeam is null) return NotFound();
             return Ok(_mapper.Map<AcademyTeamReadDto>(academyTeam));
         }

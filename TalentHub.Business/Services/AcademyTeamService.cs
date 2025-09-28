@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TalentHub.Business.Abstraction;
 using TalentHub.Business.Contracts;
+using static TalentHub.Business.Dtos.AcademyTeamDto;
 using TalentHub.Core.Entities;
 
 namespace TalentHub.Business.Services
@@ -32,7 +33,12 @@ namespace TalentHub.Business.Services
             return true;
         }
 
-        public Task<IReadOnlyList<AcademyTeam>> GetAllAsync()=>_uow.AcademyTeams.GetAllAsync();
+        public Task<AcademyTeamReadDto?> GetAcademyTeamById(Guid academyTeamId)
+            => _uow.AcademyTeams.GetAcademyTeamById(academyTeamId);
+
+        public async Task<IReadOnlyList<AcademyTeamReadDto>> GetAcademyTeams(Guid academyId) 
+            => await _uow.AcademyTeams.GetAcademyTeams(academyId);
+
 
         public Task<AcademyTeam?> GetByIdAsync(Guid id) => _uow.AcademyTeams.GetByIdAsync(id);
         

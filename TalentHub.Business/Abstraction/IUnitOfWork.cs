@@ -10,7 +10,7 @@ namespace TalentHub.Business.Abstraction
     public interface IUnitOfWork
     {
         IRepository<Academy> Academies { get; }
-        IRepository<AcademyTeam> AcademyTeams { get; }
+        IAcademyTeamRepository AcademyTeams { get; }
         IMatchRepository Matches { get; }
         IPlayerRepository Players { get; }
         IPlayerMatchRepository PlayerMatches { get; }

@@ -13,7 +13,9 @@ namespace TalentHub.Business.Dtos
         {
             public Guid Id { get; set; }
             public Guid AcademyId { get; set; }
+            public string AcademyName { get; set; }
             public string AgeGroup { get; set; }
+
         }
         public record AcademyTeamCreateDto
         {
