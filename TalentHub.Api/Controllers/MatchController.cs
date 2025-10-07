@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TalentHub.Business.Contracts;
@@ -9,6 +10,7 @@ namespace TalentHub.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class MatchController : ControllerBase
     {
         private readonly IMatchService _service;
@@ -20,8 +22,8 @@ namespace TalentHub.Api.Controllers
         }
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MatchReadDto>>> GetAll() => Ok(await _service.GetAllAsync());
-
         [HttpGet("{pageSize:int}")]
+        [Authorize(Roles ="Admin")]
         public async Task<ActionResult<IEnumerable<MatchReadDto>>> GetAllKPAsync(int pageSize,
             DateTime? key = null,
             Guid? lastId = null,

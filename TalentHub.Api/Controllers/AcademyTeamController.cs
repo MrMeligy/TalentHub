@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using TalentHub.Api.Helpers;
 using TalentHub.Business.Contracts;
 using TalentHub.Business.Dtos;
 using TalentHub.Core.Entities;
@@ -10,6 +13,7 @@ namespace TalentHub.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AcademyTeamController : ControllerBase
     {
         private readonly IAcademyTeamService _service;
@@ -19,10 +23,15 @@ namespace TalentHub.Api.Controllers
             _service = service;
             _mapper = mapper;
         }
-        [HttpGet("{academyTeam:Guid}")]
-        public async Task<ActionResult<IEnumerable<AcademyTeamReadDto>>> GetAll(Guid academyTeam)
+        [HttpGet("{academy:Guid}")]
+        public async Task<ActionResult<IEnumerable<AcademyTeamReadDto>>> GetAll(Guid academy)
         {
-            var items = await _service.GetAcademyTeams(academyTeam);
+
+            if (!User.IsAuthorizedForAcademy(academy))
+            {
+                return Forbid();
+            }
+            var items = await _service.GetAcademyTeams(academy);
             return Ok(_mapper.Map<IEnumerable<AcademyTeamReadDto>>(items));
         }
         [HttpGet("Team/{id:Guid}")]

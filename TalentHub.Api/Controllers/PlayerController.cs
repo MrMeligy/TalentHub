@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TalentHub.Api.Helpers;
 using TalentHub.Business.Contracts;
 using TalentHub.Core.Entities;
 using static TalentHub.Business.Dtos.AcademyDto;
@@ -10,6 +12,7 @@ namespace TalentHub.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PlayerController : ControllerBase
     {
         private readonly IPlayerService _service;

@@ -4,11 +4,13 @@ using Microsoft.AspNetCore.Mvc;
 using TalentHub.Business.Contracts;
 using static TalentHub.Business.Dtos.AcademyDto;
 using TalentHub.Core.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TalentHub.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize (Roles = "Admin")]
     public class AcademyController : ControllerBase
     {
         private readonly IAcademyService _service;
