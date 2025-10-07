@@ -32,14 +32,14 @@ namespace TalentHub.Api.Controllers
             if (players is null) return NotFound();
             return Ok(players);
         }
-        [HttpGet("ByMatch{matchId:Guid}")]
+        [HttpGet("Match/{matchId:Guid}")]
         public async Task<ActionResult<IEnumerable<PlayerReadDto>>> GetAllByMatch(Guid matchId)
         {
             var players = await _service.GetPlayersByTeamAsync(matchId);
             if (players is null) return NotFound();
             return Ok(players);
         }
-        [HttpGet("PlayerDetails{id:Guid}")]
+        [HttpGet("Details/{id:Guid}")]
         public async Task<ActionResult<IEnumerable<PlayerReadDto>>> GetById(Guid id)
         {
             var player = await _service.GetPlayerByIdAsync(id);

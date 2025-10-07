@@ -1,3 +1,5 @@
+using AutoMapper; // Ensure AutoMapper namespace is included
+using TalentHub.Extensions;
 using Microsoft.EntityFrameworkCore;
 using TalentHub.Api.Mapping;
 using TalentHub.Business.Abstraction;
@@ -6,7 +8,6 @@ using TalentHub.Business.Services;
 using TalentHub.Data;
 using TalentHub.Data.Repositories;
 using TalentHub.Data.UnitOfWork;
-using AutoMapper; // Ensure AutoMapper namespace is included
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,8 @@ builder.Services.AddScoped<IMatchRepository, MatchRepository>();
 builder.Services.AddScoped<IPlayerMatchRepository, PlayerMatchRepository>();
 
 builder.Services.AddScoped<IAcademyService, AcademyService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IAcademyTeamService, AcademyTeamService>();
 builder.Services.AddScoped<IPlayerService, PlayerService>();
 builder.Services.AddScoped<IPlayerSkillService, PlayerSkillService>();
@@ -45,6 +48,9 @@ builder.Services.AddCors(opt =>
         .AllowAnyMethod()
         .AllowAnyOrigin());
 });
+builder.Services.AddSwaggerGenJwtAuth();
+builder.Services.AddCustomJwtAuthExtension(builder.Configuration); //My Extension
+
 
 var app = builder.Build();
 
@@ -59,6 +65,7 @@ app.UseCors("AllowAll");
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

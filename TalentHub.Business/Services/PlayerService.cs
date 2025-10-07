@@ -21,9 +21,9 @@ namespace TalentHub.Business.Services
 
         public async Task<Player> CreatePlayerAsync(Player player)
         {
-            await _uow.Players.AddAsync(player);
-            await _uow.SaveChangesAsync();
-            return player;
+                await _uow.Players.AddAsync(player);
+                await _uow.SaveChangesAsync();
+                return player;
         }
 
         public async Task<bool> DeletePlayerAsync(Guid id)

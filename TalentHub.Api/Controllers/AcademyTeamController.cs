@@ -25,8 +25,8 @@ namespace TalentHub.Api.Controllers
             var items = await _service.GetAcademyTeams(academyTeam);
             return Ok(_mapper.Map<IEnumerable<AcademyTeamReadDto>>(items));
         }
-        [HttpGet]
-        public async Task<ActionResult<AcademyTeamReadDto>> GetById([FromQuery]Guid id)
+        [HttpGet("Team/{id:Guid}")]
+        public async Task<ActionResult<AcademyTeamReadDto>> GetById(Guid id)
         {
             var academyTeam = await _service.GetAcademyTeamById(id);
             if(academyTeam is null) return NotFound();

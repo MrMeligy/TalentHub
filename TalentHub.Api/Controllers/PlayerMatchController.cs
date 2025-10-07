@@ -26,13 +26,13 @@ namespace TalentHub.Api.Controllers
            var pm = await _service.GetByIdAsync(id);
            return Ok(_mapper.Map<PlayerMatchReadDto>(pm));
         }
-        [HttpGet("Match{matchId:Guid}")]
+        [HttpGet("Match/{matchId:Guid}")]
         public async Task<ActionResult<IEnumerable<PlayerMatchReadDto>>> GetByMatch(Guid matchId)
         {
            var pm = await _service.GetByMatchAsync( matchId);
            return Ok(_mapper.Map<IEnumerable<PlayerMatchReadDto>>(pm));
         }
-        [HttpGet("Player{playerId:Guid}")]
+        [HttpGet("Player/{playerId:Guid}")]
         public async Task<ActionResult<IEnumerable<PlayerMatchReadDto>>> GetByPlayer(Guid playerId)
         {
            var pm = await _service.GetByPlayerAsync(playerId);
@@ -46,14 +46,14 @@ namespace TalentHub.Api.Controllers
             var read = _mapper.Map<PlayerMatchReadDto>(created);
             return CreatedAtAction(nameof(GetById), new { id = read.Id }, read);
         }
-        [HttpPut("{id:Guid}")]
-        public async Task<IActionResult> Update(Guid id, PlayerMatchCreateDto dto)
-        {
-            var model = _mapper.Map<PlayerMatch>(dto);
-            await _service.DeleteAsync(id);
-            await _service.CreateAsync(model);
-            return NoContent();
-        }
+        //[HttpPut("{id:Guid}")]
+        //public async Task<IActionResult> Update(Guid id, PlayerMatchCreateDto dto)
+        //{
+        //    var model = _mapper.Map<PlayerMatch>(dto);
+        //    await _service.DeleteAsync(id);
+        //    await _service.CreateAsync(model);
+        //    return NoContent();
+        //}
 
         [HttpDelete("{id:Guid}")]
         public async Task<IActionResult> Delete(Guid id)

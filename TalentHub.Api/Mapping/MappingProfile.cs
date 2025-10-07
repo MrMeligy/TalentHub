@@ -6,12 +6,14 @@ using static TalentHub.Business.Dtos.PlayerDto;
 using static TalentHub.Business.Dtos.PlayerSkillDto;
 using static TalentHub.Business.Dtos.MatchDto;
 using static TalentHub.Business.Dtos.PlayerMatchDto;
+using TalentHub.Business.Dtos;
 
 namespace TalentHub.Api.Mapping
 {
     public class MappingProfile : Profile
     {
         public MappingProfile() {
+
             CreateMap<Academy, AcademyReadDto>();
             CreateMap<AcademyCreateDto, Academy>();
             CreateMap<AcademyUpdateDto, Academy>();

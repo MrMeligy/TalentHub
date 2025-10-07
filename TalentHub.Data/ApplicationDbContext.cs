@@ -13,6 +13,7 @@ namespace TalentHub.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
         public DbSet<Academy> Academies { get; set; }
+        public DbSet<Account> Accounts { get; set; }
         public DbSet<AcademyTeam> AcademyTeams { get; set; }
         public DbSet<Match> Matches { get; set; }
         public DbSet<Player> Players { get; set; }
@@ -21,6 +22,11 @@ namespace TalentHub.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            
+            modelBuilder.Entity<Account>(e=>
+            e.HasIndex(a=>a.UserName).IsUnique());
+                
+            
             // ===================== Academy =====================
             modelBuilder.Entity<Academy>(e =>
             {
