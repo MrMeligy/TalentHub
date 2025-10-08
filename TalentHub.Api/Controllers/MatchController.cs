@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TalentHub.Api.Helpers;
 using TalentHub.Business.Contracts;
 using TalentHub.Core.Entities;
 using static TalentHub.Business.Dtos.MatchDto;
@@ -23,17 +24,23 @@ namespace TalentHub.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MatchReadDto>>> GetAll() => Ok(await _service.GetAllAsync());
         [HttpGet("{pageSize:int}")]
-        [Authorize(Roles ="Admin")]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<MatchReadDto>>> GetAllKPAsync(int pageSize,
             DateTime? key = null,
             Guid? lastId = null,
             bool forward = true,
             CancellationToken ct = default) => Ok(await _service.GetAllAsyncKP(pageSize, key, lastId, forward, ct));
 
-        [HttpGet("{id:Guid}")]
-        public async Task<ActionResult<IEnumerable<MatchReadDto>>> GetById(Guid id) => Ok(await _service.GetByIdAsync(id));
-    
-    [HttpPost]
+        
+        [HttpGet("{academyId:Guid}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<IEnumerable<MatchReadDto>>> GetById(Guid academyId)
+        {
+            return  Ok( await _service.GetAcademyMatches(academyId));
+        }
+
+        [HttpPost]
+        [Authorize (Roles ="Admin")]
         public async Task<ActionResult<MatchReadDto>> Create(MatchCreateDto dto)
         {
             var model = _mapper.Map<Match>(dto);
@@ -42,6 +49,7 @@ namespace TalentHub.Api.Controllers
             return CreatedAtAction(nameof(GetById), new { id = read.Id }, read);
         }
         [HttpPut("{id:Guid}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<MatchReadDto>> Update(Guid id, MatchCreateDto dto)
         {
             var model = _mapper.Map<Match>(dto);
@@ -50,6 +58,7 @@ namespace TalentHub.Api.Controllers
         }
 
         [HttpDelete("{id:Guid}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var ok = await _service.DeleteAsync(id);

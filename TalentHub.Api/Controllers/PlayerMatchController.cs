@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TalentHub.Api.Helpers;
 using TalentHub.Business.Contracts;
 using TalentHub.Core.Entities;
 using static TalentHub.Business.Dtos.MatchDto;
@@ -12,7 +13,6 @@ namespace TalentHub.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class PlayerMatchController : ControllerBase
     {
         private readonly IPlayerMatchService _service;
@@ -41,23 +41,33 @@ namespace TalentHub.Api.Controllers
            return Ok(_mapper.Map<IEnumerable<PlayerMatchReadDto>>(pm));
         }
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<PlayerMatchReadDto>> Create(PlayerMatchCreateDto dto)
         {
             var model = _mapper.Map<PlayerMatch>(dto);
+            if (!User.IsAuthorizedForAcademy(model.AcademyTeam.AcademyId))
+            {
+                return Forbid();
+            }
             var created = await _service.CreateAsync(model);
             var read = _mapper.Map<PlayerMatchReadDto>(created);
             return CreatedAtAction(nameof(GetById), new { id = read.Id }, read);
         }
-        //[HttpPut("{id:Guid}")]
-        //public async Task<IActionResult> Update(Guid id, PlayerMatchCreateDto dto)
-        //{
-        //    var model = _mapper.Map<PlayerMatch>(dto);
-        //    await _service.DeleteAsync(id);
-        //    await _service.CreateAsync(model);
-        //    return NoContent();
-        //}
+        [HttpPut("{id:Guid}")]
+        public async Task<IActionResult> Update(Guid id, PlayerMatchCreateDto dto)
+        {
+            var model = _mapper.Map<PlayerMatch>(dto);
+            if (!User.IsAuthorizedForAcademy(model.AcademyTeam.AcademyId))
+            {
+                return Forbid();
+            }
+            await _service.DeleteAsync(id);
+            await _service.CreateAsync(model);
+            return NoContent();
+        }
 
         [HttpDelete("{id:Guid}")]
+        [Authorize]
         public async Task<IActionResult> Delete(Guid id)
         {
             var ok = await _service.DeleteAsync(id);

@@ -32,7 +32,7 @@ namespace TalentHub.Business.Services
             var token = new JwtSecurityToken(
                 claims: claims,
                 issuer: _configuration["JWT:Issuer"],
-                expires: DateTime.Now.AddDays(70),
+                expires: DateTime.Now.AddDays(1),
                 signingCredentials: credentials
                 );
             var _token = new JwtSecurityTokenHandler().WriteToken(token);

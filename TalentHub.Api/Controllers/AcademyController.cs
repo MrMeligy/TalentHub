@@ -21,6 +21,7 @@ namespace TalentHub.Api.Controllers
             _mapper = mapper;
         }
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<AcademyReadDto>>> GetAll()
         {
             var academies = await _service.GetAllAsync();
@@ -28,6 +29,7 @@ namespace TalentHub.Api.Controllers
         }
 
         [HttpGet("{id:Guid}")]
+        [AllowAnonymous]
         public async Task<ActionResult<AcademyReadDto>> GetById(Guid id)
         {
             var item = await _service.GetByIdAsync(id);

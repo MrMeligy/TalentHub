@@ -33,6 +33,11 @@ namespace TalentHub.Business.Services
             return true;
         }
 
+        public async Task<IReadOnlyList<MatchReadDto>> GetAcademyMatches(Guid academyId)
+        {
+            return await _uow.Matches.GetAcademyMatches(academyId);
+        }
+
         public Task<IReadOnlyList<MatchReadDto>> GetAllAsync() => _uow.Matches.GetAllWithAcademyNamesAsync();
         public Task<IReadOnlyList<MatchReadDto>> GetAllAsyncKP(int pageSize,
             DateTime? key = null,            // آخر Kickoff ظهر (ممكن null لأول صفحة)

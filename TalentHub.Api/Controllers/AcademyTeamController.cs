@@ -13,7 +13,6 @@ namespace TalentHub.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class AcademyTeamController : ControllerBase
     {
         private readonly IAcademyTeamService _service;
@@ -23,17 +22,14 @@ namespace TalentHub.Api.Controllers
             _service = service;
             _mapper = mapper;
         }
+
         [HttpGet("{academy:Guid}")]
         public async Task<ActionResult<IEnumerable<AcademyTeamReadDto>>> GetAll(Guid academy)
         {
-
-            if (!User.IsAuthorizedForAcademy(academy))
-            {
-                return Forbid();
-            }
             var items = await _service.GetAcademyTeams(academy);
             return Ok(_mapper.Map<IEnumerable<AcademyTeamReadDto>>(items));
         }
+
         [HttpGet("Team/{id:Guid}")]
         public async Task<ActionResult<AcademyTeamReadDto>> GetById(Guid id)
         {
@@ -41,22 +37,34 @@ namespace TalentHub.Api.Controllers
             if(academyTeam is null) return NotFound();
             return Ok(_mapper.Map<AcademyTeamReadDto>(academyTeam));
         }
+        
         [HttpPost]
+        [Authorize(Roles ="Admin")]
         public async Task<ActionResult<AcademyTeamReadDto>> Create(AcademyTeamCreateDto dto)
         {
             var model = _mapper.Map<AcademyTeam>(dto);
+            if (!User.IsAuthorizedForAcademy(dto.AcademyId))
+            {
+                return Forbid();
+            }
             var created = await _service.CreateAsync(model);
             var read = _mapper.Map<AcademyTeamReadDto>(created);
             return CreatedAtAction(nameof(GetById), new { id = read.Id }, read);
         }
         [HttpPut("{id:Guid}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Update(Guid id, AcademyTeamUpdateDto dto)
         {
             var model = _mapper.Map<AcademyTeam>(dto);
+            if (!User.IsAuthorizedForAcademy(dto.AcademyId))
+            {
+                return Forbid();
+            }
             var ok = await _service.UpdateAsync(id, model);
             return ok ? NoContent() : NotFound();
         }
         [HttpDelete("{id:Guid}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var ok = await _service.DeleteAsync(id);
