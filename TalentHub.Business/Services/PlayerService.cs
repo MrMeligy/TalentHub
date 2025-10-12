@@ -49,6 +49,7 @@ namespace TalentHub.Business.Services
         {
             var existing = await _uow.Players.GetByIdAsync(id);
             if (existing is null) return false;
+            existing.AcademyTeamId = player.AcademyTeamId;
             existing.Image = player.Image;
             existing.Name = player.Name;
             existing.Nationality = player.Nationality;
