@@ -32,24 +32,28 @@ namespace TalentHub.Api.Controllers
             CancellationToken ct = default) => Ok(await _service.GetAllAsyncKP(pageSize, key, lastId, forward, ct));
 
         
-        [HttpGet("{academyId:Guid}")]
+        [HttpGet("academy/{academyId:Guid}")]
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<MatchReadDto>>> GetById(Guid academyId)
         {
             return  Ok( await _service.GetAcademyMatches(academyId));
         }
+        [HttpGet("{matchId:Guid}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<IEnumerable<MatchReadDto>>> GetByMatchId(Guid matchId)
+        {
+            return  Ok( await _service.GetByIdAsync(matchId));
+        }
 
         [HttpPost]
-        [Authorize (Roles ="Admin")]
         public async Task<ActionResult<MatchReadDto>> Create(MatchCreateDto dto)
         {
             var model = _mapper.Map<Match>(dto);
             var created = await _service.CreateAsync(model);
             var read = _mapper.Map<MatchReadDto>(created);
-            return CreatedAtAction(nameof(GetById), new { id = read.Id }, read);
+            return CreatedAtAction(nameof(GetByMatchId), new { matchId = read.Id}, read);
         }
         [HttpPut("{id:Guid}")]
-        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<MatchReadDto>> Update(Guid id, MatchCreateDto dto)
         {
             var model = _mapper.Map<Match>(dto);
@@ -58,7 +62,7 @@ namespace TalentHub.Api.Controllers
         }
 
         [HttpDelete("{id:Guid}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize (Roles ="Admin")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var ok = await _service.DeleteAsync(id);

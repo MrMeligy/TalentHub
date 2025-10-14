@@ -10,7 +10,7 @@ namespace TalentHub.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize (Roles = "Admin")]
+    [Authorize (Roles ="Admin")]
     public class AcademyController : ControllerBase
     {
         private readonly IAcademyService _service;
